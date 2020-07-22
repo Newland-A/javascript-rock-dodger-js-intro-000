@@ -57,14 +57,14 @@ function checkCollision(rock) {
 }
 
 function createRock(x) {
-  const rock = document.createElement('div')
+  const rock = document.createElement('div');
 
   rock.className = 'rock'
   rock.style.left = `${x}px`;
 
   // Hmmm, why would we have used `var` here?
   var top = 0
-
+  var top2 = rock.style.top = 0;
   rock.style.top = '0px';
 
   /**
@@ -79,7 +79,7 @@ function createRock(x) {
    * seems like a good pace.)
    */
   function moveRock() {
-    rock.style.top = `${top += 2}px`
+    rock.style.top = `${top += 2}px`;
     // implement me!
     // (use the comments below to guide you!)
     /**
@@ -87,16 +87,16 @@ function createRock(x) {
      * we should call endGame().
      */
     if (checkCollision(rock)){
-      endGame();
+     return endGame();
     }
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-    if (top <= GAME_HEIGHT){
-      rock.remove();
+    if (top2 < GAME_HEIGHT){
+    window.requestAnimationFrame(moveRock);
     } else {
-      window.requestAnimationFrame(moveRock);
+      rock.remove();
     }
     /**
      * But if the rock *has* reached the bottom of the GAME,
@@ -105,13 +105,13 @@ function createRock(x) {
   }
 
   // We should kick off the animation of the rock around here.
-
+window.requestAnimationFrame(moveRock);
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision.
-  ROCKS.push(rock)
+  ROCKS.push(rock);
 
   // Finally, return the rock element you've created.
-  return rock
+  return rock;
 }
 
 /**
